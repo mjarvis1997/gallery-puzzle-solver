@@ -7,6 +7,7 @@ type Props = {
   grid: Grid;
   onGridChange: (grid: Grid) => void;
   onSolve: () => void;
+  onRandomize: () => void;
   loading: boolean;
 };
 
@@ -20,9 +21,7 @@ function resizeGrid(grid: Grid, n: number, m: number): Grid {
 const clamp = (value: number, min: number, max: number) =>
   Math.max(min, Math.min(max, Number.isNaN(value) ? min : value));
 
-const randomLetter = () => String.fromCharCode(97 + Math.floor(Math.random() * 26));
-
-export function PuzzleInput({ grid, onGridChange, onSolve, loading }: Props) {
+export function PuzzleInput({ grid, onGridChange, onSolve, onRandomize, loading }: Props) {
   const n = grid.length;
   const m = grid[0]?.length ?? 0;
 
@@ -31,8 +30,6 @@ export function PuzzleInput({ grid, onGridChange, onSolve, loading }: Props) {
     next[position][option] = value.toLowerCase().slice(0, 1);
     onGridChange(next);
   };
-
-  const randomize = () => onGridChange(grid.map((col) => col.map(randomLetter)));
 
   return (
     <section className="puzzle-input">
@@ -78,7 +75,7 @@ export function PuzzleInput({ grid, onGridChange, onSolve, loading }: Props) {
       </div>
 
       <div className="actions">
-        <button className="randomize-button" onClick={randomize} disabled={loading}>
+        <button className="randomize-button" onClick={onRandomize} disabled={loading}>
           Randomize
         </button>
         <button className="solve-button" onClick={onSolve} disabled={loading}>

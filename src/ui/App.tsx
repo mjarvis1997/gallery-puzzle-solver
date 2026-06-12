@@ -4,9 +4,11 @@ import { solvePuzzle } from '../solver/solvePuzzle';
 import type { Grid, WordEntry } from '../solver/types';
 import { PuzzleInput } from './PuzzleInput';
 import { Results } from './Results';
+import { buildSeededGrid } from './randomGrid';
 
 const MIN_ZIPF = 1; // below the dictionary's floor (~1.3), so nothing is hidden by default
 const MAX_ZIPF = 7.5;
+const GUARANTEED_SOLUTIONS = 3; // a randomized grid embeds at least this many real words
 
 // The example puzzle from docs/puzzle.md, shown on load.
 const EXAMPLE_GRID: Grid = [
@@ -21,6 +23,22 @@ export function App() {
   const [minZipf, setMinZipf] = useState(MIN_ZIPF);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const handleRandomize = async () => {
+    setLoading(true);
+    try {
+      // Seed the grid with real words so it is guaranteed to have solutions.
+      // Falls back to a fully random grid if this length has no dictionary.
+      const entries = await loadWordsByLength(grid.length).catch(() => []);
+      const m = grid[0]?.length ?? 0;
+      const words = entries.map((e) => e.word);
+      setGrid(buildSeededGrid(grid.length, m, words, GUARANTEED_SOLUTIONS));
+      setMatches(null);
+      setError(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSolve = async () => {
     setLoading(true);
@@ -49,7 +67,13 @@ export function App() {
         </p>
       </header>
 
-      <PuzzleInput grid={grid} onGridChange={setGrid} onSolve={handleSolve} loading={loading} />
+      <PuzzleInput
+        grid={grid}
+        onGridChange={setGrid}
+        onSolve={handleSolve}
+        onRandomize={handleRandomize}
+        loading={loading}
+      />
 
       {error && <p className="error">{error}</p>}
 
