@@ -95,18 +95,34 @@ header h1 {
   border-color: var(--accent);
 }
 
-.solve-button {
+.actions {
+  display: flex;
+  gap: 0.75rem;
   margin-top: 1.25rem;
+}
+
+.solve-button,
+.randomize-button {
   padding: 0.6rem 1.5rem;
   font-size: 1rem;
-  color: #fff;
-  background: var(--accent);
-  border: none;
   border-radius: 8px;
   cursor: pointer;
 }
 
-.solve-button:disabled {
+.solve-button {
+  color: #fff;
+  background: var(--accent);
+  border: none;
+}
+
+.randomize-button {
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.solve-button:disabled,
+.randomize-button:disabled {
   opacity: 0.6;
   cursor: default;
 }
