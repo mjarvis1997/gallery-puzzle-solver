@@ -16,13 +16,16 @@ Input:
   [d,t,s]
 ]
 
-Output:
-['bad', 'bas', 'bat', 'bed', 'bes', 'bet', 'bod', 'bos', 'bot',
- 'cad', 'cat', 'cod', 'cos', 'cot', 'dad', 'das', 'dat', 'des',
- 'det', 'dod', 'dos', 'dot']
+Output (22 words, shown most → least common):
+['bad', 'dad', 'bed', 'bet', 'cat', 'cos', 'bat', 'dot', 'des',
+ 'cod', 'cot', 'dod', 'dos', 'das', 'dat', 'cad', 'bot', 'bod',
+ 'det', 'bos', 'bas', 'bes']
 ```
 
-The output contains *every* valid English word formable from the grid — not
-just an illustrative few. Words are returned in alphabetical order (a
-consequence of filtering the alphabetically-sorted dictionary).
+The output contains *every* valid word formable from the grid — not just an
+illustrative few. The core solver returns matches in the dictionary's order;
+the app then attaches each word's frequency (a **Zipf** value from the
+SUBTLEX-US word list) and sorts common-first, as shown above. A frequency
+slider lets the user trim the rarer tail (e.g. `bas`/`bes` at the bottom)
+without losing the common answers (`bad`, `dad`, `bed`).
 
