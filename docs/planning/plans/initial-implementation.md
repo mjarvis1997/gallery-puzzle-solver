@@ -30,9 +30,9 @@ We need three things: (1) a pure, well-tested `solvePuzzle` function, (2) unit +
 
 ## Checklist
 
-- [ ] **1. Project scaffolding** — Vite + React + TypeScript, Bun scripts, tsconfig, GH Pages base path
-- [ ] **2. Dictionary preprocessing** — build script: `words.txt` → `public/dictionary/len-{N}.txt` (`word<TAB>zipf`) + `index.json`; add `assets/words.md` source doc
-- [ ] **3. Core solver** — pure `solvePuzzle(grid, words)` in `src/solver/`
+- [x] **1. Project scaffolding** — Vite + React + TypeScript, Bun scripts, tsconfig, GH Pages base path
+- [x] **2. Dictionary preprocessing** — build script: `words.txt` → `public/dictionary/len-{N}.txt` (`word<TAB>zipf`) + `index.json`; add `assets/words.md` source doc
+- [x] **3. Core solver** — pure `solvePuzzle(grid, words)` in `src/solver/`
 - [ ] **4. Tests** — unit tests for helpers + integration test using the `docs/puzzle.md` example
 - [ ] **5. Dictionary loader** — runtime fetch/parse of the per-length file → `{ word, zipf }[]`
 - [ ] **6. React UI** — puzzle input grid + results (sorted by frequency) + min-Zipf slider, wired to solver; SUBTLEX attribution footer
@@ -100,7 +100,7 @@ Signature: `solvePuzzle(grid: string[][], words: string[]): string[]`
 
 ## Step 4 — Tests (Bun runner)
 - **Unit** (`src/solver/*.test.ts`): `matchesGrid` — exact-position matching, non-member rejection, length mismatch.
-- **Integration** (`solvePuzzle.test.ts`): use the `docs/puzzle.md` example grid with a **small fixture word list** (e.g. `['cat','bed','dot','cot','bad','zzz']`) — not the full dictionary, for speed. The solver is pure on `string[]`, so frequency is irrelevant here. Assert the result equals the expected matches after sorting both sides (order-independent).
+- **Integration** (`solvePuzzle.test.ts`): use the `docs/puzzle.md` example grid with a **small fixture word list** — not the full dictionary, for speed. The solver only filters by grid-formability (it does *not* judge English-ness — that's the dictionary's role), so negatives must be **real words that can't be formed from the grid**, not nonsense strings. Suggested fixture: `['cat','bed','dot','cot','bad','cap','cats']` where `cap` is excluded (its `p` isn't in position 2) and `cats` is excluded by the length guard. Assert the result equals `['cat','bed','dot','cot','bad']` after sorting both sides (order-independent).
 - **Verify:** `bun test src/solver/solvePuzzle.test.ts` passes.
 
 ## Step 5 — Dictionary loader
