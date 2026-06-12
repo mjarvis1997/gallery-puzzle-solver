@@ -35,8 +35,8 @@ We need three things: (1) a pure, well-tested `solvePuzzle` function, (2) unit +
 - [x] **3. Core solver** — pure `solvePuzzle(grid, words)` in `src/solver/`
 - [ ] **4. Tests** — unit tests for helpers + integration test using the `docs/puzzle.md` example
 - [ ] **5. Dictionary loader** — runtime fetch/parse of the per-length file → `{ word, zipf }[]`
-- [ ] **6. React UI** — puzzle input grid + results (sorted by frequency) + min-Zipf slider, wired to solver; SUBTLEX attribution footer
-- [ ] **7. GitHub Pages deploy** — Actions workflow + Vite `base` config
+- [x] **6. React UI** — puzzle input grid + results (sorted by frequency) + min-Zipf slider, wired to solver; SUBTLEX attribution footer
+- [x] **7. GitHub Pages deploy** — Actions workflow + Vite `base` config
 - [ ] **8. Final verification** — typecheck, tests, local run end-to-end
 
 ---
@@ -121,7 +121,8 @@ Signature: `solvePuzzle(grid: string[][], words: string[]): string[]`
 ## Step 7 — GitHub Pages deploy
 - `.github/workflows/deploy.yml`: on push to `main` — `bun install`, run `build-dictionary` (generates `public/dictionary/`), `bun run build`, upload `dist/`, deploy via `actions/deploy-pages`.
 - Confirm `vite.config.ts` `base` matches the repo name so asset URLs resolve under `/gallery-puzzle-solver/`.
-- **Open item:** commit generated dictionary vs generate-in-CI. Recommend generate-in-CI + gitignore to keep the repo lean; revisit if CI time is a concern.
+- **Resolved:** generate-in-CI. The workflow runs `bun run gen:dict` before `bun run build`, so the gitignored `public/dictionary/` is rebuilt fresh each deploy and bundled into `dist/`.
+- **One-time manual step:** in the GitHub repo, set **Settings → Pages → Source = GitHub Actions** (the `deploy.yml` workflow handles the rest on push to `main`).
 
 ## Step 8 — Final verification
 - `bun run typecheck` — no errors.
