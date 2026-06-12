@@ -84,6 +84,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ### Workflow
 - Be sure to typecheck when you're done making a series of code changes
 - Prefer running single tests, and not the whole test suite, for performance
+- Make a git commit after each logical step (e.g. a completed plan checklist item or a self-contained change). Only commit once the step is complete and verified — typecheck and any relevant tests pass. Use clear, conventional commit messages. They should be no longer than 10 words.
 - Assume my web app is already running on localhost:3000. Use the browser to open it and check the checkout flow. Let me know if it is not running or if you have any issues accessing it.
 
 ### Guidelines
