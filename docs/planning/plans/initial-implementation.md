@@ -37,7 +37,7 @@ We need three things: (1) a pure, well-tested `solvePuzzle` function, (2) unit +
 - [ ] **5. Dictionary loader** — runtime fetch/parse of the per-length file → `{ word, zipf }[]`
 - [x] **6. React UI** — puzzle input grid + results (sorted by frequency) + min-Zipf slider, wired to solver; SUBTLEX attribution footer
 - [x] **7. GitHub Pages deploy** — Actions workflow + Vite `base` config
-- [ ] **8. Final verification** — typecheck, tests, local run end-to-end
+- [x] **8. Final verification** — typecheck, tests, local run end-to-end
 
 ---
 
