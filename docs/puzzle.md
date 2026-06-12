@@ -17,6 +17,12 @@ Input:
 ]
 
 Output:
-['cat', 'bed', 'dot']
+['bad', 'bas', 'bat', 'bed', 'bes', 'bet', 'bod', 'bos', 'bot',
+ 'cad', 'cat', 'cod', 'cos', 'cot', 'dad', 'das', 'dat', 'des',
+ 'det', 'dod', 'dos', 'dot']
 ```
+
+The output contains *every* valid English word formable from the grid — not
+just an illustrative few. Words are returned in alphabetical order (a
+consequence of filtering the alphabetically-sorted dictionary).
 
